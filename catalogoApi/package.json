@@ -1,10 +1,11 @@
 {
   "name": "catalogoapi",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API REST de catalogo de productos y favoritos con JWT",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
