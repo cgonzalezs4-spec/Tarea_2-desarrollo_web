@@ -1,0 +1,41 @@
+$kind: http-request
+url: http://localhost:3000/api/auth/registro
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nombre\": \"Usuario A\",\r
+
+    \  \"correo\": \"usuarioa@ejemplo.com\",\r
+
+    \  \"password\": \"ClavePrueba123!\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Registro exitoso - HTTP 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Usuario registrado correctamente\", function () {\r
+
+      \    const respuesta = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(respuesta.usuario.nombre).to.eql(\"Usuario A\");\r
+
+      \    pm.expect(respuesta.usuario.rol).to.eql(\"usuario\");\r
+
+      \    pm.expect(respuesta.usuario).to.have.property(\"id\");\r
+
+      \    pm.expect(respuesta.usuario).to.not.have.property(\"password\");\r
+
+      });"
+    language: text/javascript
+order: 1654

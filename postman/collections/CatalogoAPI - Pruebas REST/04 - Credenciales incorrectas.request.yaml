@@ -1,0 +1,35 @@
+$kind: http-request
+url: http://localhost:3000/api/auth/login
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"correo\": \"usuarioa@ejemplo.com\",\r
+
+    \  \"password\": \"ClaveIncorrecta123!\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Credenciales incorrectas - HTTP 401\", function () {\r
+
+      \    pm.response.to.have.status(401);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"El servidor rechaza el inicio de sesión\", function () {\r
+
+      \    const respuesta = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(respuesta.mensaje).to.be.a(\"string\").and.not.empty;\r
+
+      \    pm.expect(respuesta).to.not.have.property(\"token\");\r
+
+      });"
+    language: text/javascript
+order: 4000

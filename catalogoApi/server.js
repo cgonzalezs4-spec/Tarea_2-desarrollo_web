@@ -5,6 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const authRoutes = require("./src/routes/authRoutes");
+const productoRoutes = require("./src/routes/productoRoutes");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 
 // Rutas de autenticación
 app.use("/api/auth", authRoutes);
+app.use("/api/productos", productoRoutes);
 
 // Puerto del servidor
 const PORT = process.env.PORT || 3000;

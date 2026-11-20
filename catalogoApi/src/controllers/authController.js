@@ -1,3 +1,4 @@
+
 const Usuario = require("../models/Usuario");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -5,8 +6,9 @@ const jwt = require("jsonwebtoken");
 // REGISTRO DE USUARIOS
 const registrar = async (req, res) => {
   try {
-    const { nombre, correo, password } = req.body;
+    const { nombre, correo, password } = req.body || {};
 
+    // Validar los datos recibidos
     if (
       typeof nombre !== "string" ||
       !nombre.trim() ||
@@ -20,8 +22,10 @@ const registrar = async (req, res) => {
       });
     }
 
+    // Normalizar el correo electrónico
     const correoNormalizado = correo.trim().toLowerCase();
 
+    // Comprobar si el correo ya está registrado
     const existe = await Usuario.findOne({
       correo: correoNormalizado
     });
@@ -32,8 +36,10 @@ const registrar = async (req, res) => {
       });
     }
 
+    // Cifrar la contraseña
     const passwordHash = await bcrypt.hash(password, 12);
 
+    // Crear el usuario en MongoDB
     const usuario = await Usuario.create({
       nombre: nombre.trim(),
       correo: correoNormalizado,
@@ -67,8 +73,9 @@ const registrar = async (req, res) => {
 // INICIO DE SESIÓN
 const login = async (req, res) => {
   try {
-    const { correo, password } = req.body;
+    const { correo, password } = req.body || {};
 
+    // Validar los datos de acceso
     if (
       typeof correo !== "string" ||
       !correo.trim() ||
@@ -80,6 +87,7 @@ const login = async (req, res) => {
       });
     }
 
+    // Buscar el usuario registrado
     const usuario = await Usuario.findOne({
       correo: correo.trim().toLowerCase()
     }).select("+password");
@@ -90,6 +98,7 @@ const login = async (req, res) => {
       });
     }
 
+    // Comparar la contraseña ingresada
     const valida = await bcrypt.compare(
       password,
       usuario.password
@@ -101,6 +110,7 @@ const login = async (req, res) => {
       });
     }
 
+    // Generar token JWT con duración de una hora
     const token = jwt.sign(
       { id: usuario._id.toString() },
       process.env.JWT_SECRET,
@@ -125,4 +135,8 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { registrar, login };
+// Exportar las funciones
+module.exports = {
+  registrar,
+  login
+};

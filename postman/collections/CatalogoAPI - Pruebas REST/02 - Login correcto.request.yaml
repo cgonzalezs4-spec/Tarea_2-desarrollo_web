@@ -1,0 +1,55 @@
+$kind: http-request
+url: http://localhost:3000/api/auth/login
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"correo\": \"usuarioa@ejemplo.com\",\r
+
+    \  \"password\": \"ClavePrueba123!\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Login exitoso - HTTP 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Se genera correctamente el JWT\", function () {\r
+
+      \    const respuesta = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(respuesta.token).to.be.a(\"string\");\r
+
+      \    pm.expect(respuesta.token.split(\".\")).to.have.lengthOf(3);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"No se expone la contraseña\", function () {\r
+
+      \    const respuesta = pm.response.json();\r
+
+      \r
+
+      \    if (respuesta.usuario) {\r
+
+      \        pm.expect(respuesta.usuario).to.not.have.property(\"password\");\
+      \r
+
+      \        pm.expect(respuesta.usuario).to.not.have.property(\"passwordHash\
+      \");\r
+
+      \    }\r
+
+      });"
+    language: text/javascript
+order: 3000
