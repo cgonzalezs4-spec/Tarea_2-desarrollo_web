@@ -1,0 +1,19 @@
+$kind: http-request
+url: http://localhost:3000/api/productos
+method: POST
+body:
+  type: json
+  content: "\r
+
+    {\r
+
+    \  \"nombre\": \"Laptop Lenovo\",\r
+
+    \  \"descripcion\": \"Computadora portátil con 16 GB de RAM y almacenamiento SSD\",\r
+
+    \  \"categoria\": \"Tecnología\",\r
+
+    \  \"precio\": 750.00\r
+
+    }\r\n"
+order: 6000

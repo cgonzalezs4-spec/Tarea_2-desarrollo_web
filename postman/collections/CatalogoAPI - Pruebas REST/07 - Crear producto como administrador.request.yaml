@@ -1,0 +1,25 @@
+$kind: http-request
+url: http://localhost:3000/api/productos
+method: POST
+body:
+  type: json
+  content: "\r
+
+    \r
+
+    {\r
+
+    \  \"nombre\": \"Mouse inalámbrico\",\r
+
+    \  \"descripcion\": \"Mouse de prueba para comprobar la eliminación de productos\",\r
+
+    \  \"categoria\": \"Accesorios\",\r
+
+    \  \"precio\": 25\r
+
+    }\r\n"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0h8a}}"
+order: 7000

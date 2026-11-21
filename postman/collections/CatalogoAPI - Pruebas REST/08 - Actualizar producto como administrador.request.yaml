@@ -1,0 +1,23 @@
+$kind: http-request
+url: http://localhost:3000/api/productos/6b00e8bc83780301747b2780
+method: PUT
+body:
+  type: json
+  content: "\r
+
+    {\r
+
+    \  \"nombre\": \"Laptop Lenovo\",\r
+
+    \  \"descripcion\": \"Computadora portátil con 16 GB de RAM y almacenamiento SSD\",\r
+
+    \  \"categoria\": \"Tecnología\",\r
+
+    \  \"precio\": 700\r
+
+    }\r\n"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0h8a}}"
+order: 8000

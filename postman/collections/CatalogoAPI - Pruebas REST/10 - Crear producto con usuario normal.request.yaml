@@ -1,0 +1,23 @@
+$kind: http-request
+url: http://localhost:3000/api/productos
+method: POST
+body:
+  type: json
+  content: "\r
+
+    {\r
+
+    \  \"nombre\": \"Teclado de prueba\",\r
+
+    \  \"descripcion\": \"Producto utilizado para comprobar las restricciones de seguridad\",\r
+
+    \  \"categoria\": \"Accesorios\",\r
+
+    \  \"precio\": 35\r
+
+    }\r\n"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_11m6}}"
+order: 10000

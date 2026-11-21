@@ -1,0 +1,8 @@
+$kind: http-request
+url: http://localhost:3000/api/productos/6b00ed5483780301747b2781
+method: DELETE
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0h8a}}"
+order: 9000
